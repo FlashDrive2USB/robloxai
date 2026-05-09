@@ -14,6 +14,10 @@ function getMemory(id) {
     return memory[id];
 }
 
+app.get("/", (req, res) => {
+    res.send("AI ONLINE");
+});
+
 app.post("/chat", async (req, res) => {
 
     const { message, userId } = req.body;
@@ -25,14 +29,15 @@ app.post("/chat", async (req, res) => {
         const response = await axios.post(
             "https://openrouter.ai/api/v1/chat/completions",
             {
-                model: "google/gemma-7b-it:free",
+                model: "deepseek/deepseek-chat-v3-0324:free",
+
                 messages: [
                     {
                         role: "system",
                         content:
-`You are NoobTheGirl, a funny Roblox NPC.
+`You are NoobTheGirl, a cute funny Roblox NPC.
 
-Memory about player:
+Memory:
 ${userMemory.join(", ")}
 `
                     },
@@ -44,7 +49,9 @@ ${userMemory.join(", ")}
             },
             {
                 headers: {
-                    "Authorization": "Bearer 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",
+                    "Authorization": "Bearer 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",
+                    "HTTP-Referer": "https://roblox.com",
+                    "X-Title": "NoobTheGirl AI",
                     "Content-Type": "application/json"
                 }
             }
@@ -53,7 +60,7 @@ ${userMemory.join(", ")}
         const reply =
             response.data.choices[0].message.content;
 
-        // simple memory
+        // memory
         if (message.toLowerCase().includes("my name is")) {
             userMemory.push(message);
         }
@@ -72,16 +79,14 @@ ${userMemory.join(", ")}
 
     } catch (err) {
 
-        console.log(err.response?.data || err.message);
+        console.log(
+            err.response?.data || err.message
+        );
 
         res.json({
             reply: "brain lag 😵"
         });
     }
-});
-
-app.get("/", (req, res) => {
-    res.send("NoobTheGirl AI online");
 });
 
 app.listen(3000, () => {
