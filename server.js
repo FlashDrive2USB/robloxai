@@ -44,7 +44,7 @@ ${userMemory.join(", ")}
             },
             {
                 headers: {
-                    "Authorization": "Bearer sk759d94c88fed77e71be02e67bbf54e5aaf04ae765b25baa9d668539766625fb1",
+                    "Authorization": "Bearer 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",
                     "Content-Type": "application/json"
                 }
             }
