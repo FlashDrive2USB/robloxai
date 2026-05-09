@@ -10,8 +10,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/chat", async (req, res) => {
-
-    const { message } = req.body;
+    const message = req.body.message;
 
     try {
 
@@ -19,12 +18,10 @@ app.post("/chat", async (req, res) => {
             "https://openrouter.ai/api/v1/chat/completions",
             {
                 model: "openrouter/free",
-
                 messages: [
                     {
                         role: "system",
-                        content:
-                            "You are NoobTheGirl, a funny Roblox NPC."
+                        content: "You are NoobTheGirl, a funny Roblox NPC."
                     },
                     {
                         role: "user",
@@ -51,9 +48,7 @@ app.post("/chat", async (req, res) => {
 
     } catch (err) {
 
-        console.log(
-            err.response?.data || err.message
-        );
+        console.log(err.response?.data || err.message);
 
         res.json({
             reply: "brain lag 😵"
