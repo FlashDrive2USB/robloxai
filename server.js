@@ -72,7 +72,7 @@ ${userMemory.join(", ")}
 
     } catch (err) {
 
-        console.log(err.message);
+        console.log(err.response?.data || err.message);
 
         res.json({
             reply: "brain lag 😵"
